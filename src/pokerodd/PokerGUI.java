@@ -5,6 +5,8 @@
  */
 package pokerodd;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ocsen
@@ -98,6 +100,7 @@ public class PokerGUI extends javax.swing.JFrame {
         jComboBox14 = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -614,7 +617,9 @@ public class PokerGUI extends javax.swing.JFrame {
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Board");
+        jLabel28.setText("Community cards");
+
+        jLabel29.setText("Elapsed time");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -634,7 +639,8 @@ public class PokerGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -663,9 +669,10 @@ public class PokerGUI extends javax.swing.JFrame {
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29))
                 .addContainerGap())
         );
 
@@ -747,60 +754,101 @@ public class PokerGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ArrayList<Integer> known_cards = new ArrayList();
+        long tStart = System.currentTimeMillis();
+        Card[] board = new Card[5];
+        int count = 0;
         if (init_value[0] != -1 && init_value[1] != -1) {
             c1 = new Card(init_value[1]*13 + init_value[0]);
             System.out.println("c1 " + c1);
+            if (!known_cards.contains(init_value[1]*13 + init_value[0]))
+                known_cards.add(init_value[1]*13 + init_value[0]);
+            else jLabel28.setText("Duplicated cards");
         } else c1 = null;
         if (init_value[2] != -1 && init_value[3] != -1 ){
             c2 = new Card(init_value[3]*13 + init_value[2]);
             System.out.println("c2 " + c2);
+            if (!known_cards.contains(init_value[3]*13 + init_value[2]))
+                known_cards.add(init_value[3]*13 + init_value[2]);
+            else jLabel28.setText("Duplicated cards");
         } else c2 = null;
         if (init_value[4] != -1 && init_value[5] != -1) {
             c3 = new Card(init_value[5]*13 + init_value[4]);
             System.out.println("c3 " + c3);
+            if (!known_cards.contains(init_value[5]*13 + init_value[4]))
+                known_cards.add(init_value[5]*13 + init_value[4]);
+            else jLabel28.setText("Duplicate cards");
         } else c3 = null;
         if (init_value[6] != -1 && init_value[7] != -1) {
             c4 = new Card(init_value[7]*13 + init_value[6]);
             System.out.println("c4 " + c4);
+            if (!known_cards.contains(init_value[7]*13 + init_value[6]))
+                known_cards.add(init_value[7]*13 + init_value[6]);
+            else jLabel28.setText("Duplicated cards");
         } else c4 = null;
         if (init_value[8] != -1 && init_value[9] != -1) {
             c5 = new Card(init_value[9]*13 + init_value[8]);
+            board[count++] = c5;
             System.out.println("c5 " + c5);
+            if (!known_cards.contains(init_value[9]*13 + init_value[8]))
+                known_cards.add(init_value[9]*13 + init_value[8]);
+            else jLabel28.setText("Duplicated cards");
         } else c5 = null;
         if (init_value[10] != -1 && init_value[11] != -1) {
             c6 = new Card(init_value[11]*13 + init_value[10]);
             System.out.println("c6 " + c6);
+            board[count++] = c6;
+            if (!known_cards.contains(init_value[11]*13 + init_value[10]))
+                known_cards.add(init_value[11]*13 + init_value[10]);
+            else jLabel28.setText("Duplicated cards");
         } else c6 = null;
         if (init_value[12] != -1 && init_value[13] != -1) {
             c7 = new Card(init_value[13]*13 + init_value[12]);
             System.out.println("c7 " + c7);
+            board[count++] = c7;
+            if (!known_cards.contains(init_value[13]*13 + init_value[12]))
+                known_cards.add(init_value[13]*13 + init_value[12]);
+            else jLabel28.setText("Duplicated cards");
         } else c7 = null;
         if (init_value[14] != -1 && init_value[15] != -1) {
             c8 = new Card(init_value[15]*13 + init_value[14]);
             System.out.println("c8 " + c8);
+            board[count++] = c8;
+            if (!known_cards.contains(init_value[15]*13 + init_value[14]))
+                known_cards.add(init_value[15]*13 + init_value[14]);
+            else jLabel28.setText("Duplicated cards");
         } else c8 = null;
         if (init_value[16] != -1 && init_value[17] != -1) {
             c9 = new Card(init_value[17]*13 + init_value[16]);
             System.out.println("c9 " + c9);
+            board[count++] = c9;
+            if (!known_cards.contains(init_value[17]*13 + init_value[16]))
+                known_cards.add(init_value[17]*13 + init_value[16]);
+            else jLabel28.setText("Duplicated cards");
         } else c9 = null;
         if (c1 != null && c2 != null) pl1 = new Player(new Card[]{c1, c2});
         if (c3 != null && c4 != null) pl2 = new Player(new Card[]{c3, c4});
-        Card[] board = new Card[]{c5, c6, c7, c8, c9};
+        
         Player[] pls = new Player[]{pl1, pl2};
         int num_known_card = 0;
         for (int i = 0; i < 5; i++)
             if (board[i] != null) num_known_card++;
         if (pl1 == null && pl2 == null) jLabel28.setText("No player created");
-        else if (num_known_card < 3 && num_known_card > 0) jLabel28.setText("3 flop cards or nothing");
+        else if (num_known_card < 3 && num_known_card > 0) jLabel28.setText("3 flop cards or no card at all");
         else {
             pk = new PokerGame(NUM_OF_PLAYERS, pls, num_known_card, board);
             double[] odd = pk.getWinningOdd();
-            if (pl1 != null) jLabel26.setText(String.valueOf(odd[0]));
-            if (pl2 != null) jLabel27.setText(String.valueOf(odd[1]));
+            if (pl1 != null) jLabel26.setText(String.format("%.2f", odd[0]*100) + "%");
+            if (pl2 != null) jLabel27.setText(String.format("%.2f", odd[1]*100) + "%");
         }
+        long tEnd = System.currentTimeMillis();
+        long tDelta = tEnd - tStart;
+        double elapsedSeconds = tDelta / 1000.0;
+        jLabel29.setText(String.valueOf(elapsedSeconds) + "s");
         System.out.println(num_known_card);
         if (pl1 != null) System.out.println(pl1);
         if (pl2 != null) System.out.println(pl2);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox11ActionPerformed
@@ -920,6 +968,7 @@ public class PokerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
